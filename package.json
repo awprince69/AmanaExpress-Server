@@ -1,0 +1,29 @@
+{
+  "name": "full-stack-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start:dev":"nodemon index",
+    "start":"node index",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Porgramming-Hero-web-course/full-stack-server-awprince69.git"
+  },
+  "author": "prince",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Porgramming-Hero-web-course/full-stack-server-awprince69/issues"
+  },
+  "homepage": "https://github.com/Porgramming-Hero-web-course/full-stack-server-awprince69#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^1.0.1",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mongodb": "^3.6.5",
+    "nodemon": "^2.0.7"
+  }
+}
