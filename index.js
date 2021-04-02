@@ -2,7 +2,6 @@ const express = require('express')
 const MongoClient = require('mongodb').MongoClient;
 const ObjectId = require('mongodb').ObjectID
 const cors = require('cors')
-// require('dotenv').config()
 require('dotenv/config');
 
 const app = express()
@@ -15,8 +14,6 @@ app.get('/', (req, res) => {
     res.send('Hello World!')
 })
 
-
-// const uri = "mongodb+srv://amanaExpress:test123@cluster0.kmkzt.mongodb.net/$amanaExpress?retryWrites=true&w=majority";
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.kmkzt.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 client.connect(err => {
@@ -30,6 +27,7 @@ client.connect(err => {
                 res.send(product);
             })
     })
+
     app.get('/orders', (req, res) => {
         const queryEmail = req.query.email;
         orderCollection.find({ email: queryEmail })
@@ -37,6 +35,7 @@ client.connect(err => {
                 res.send(items);
             })
     })
+
     app.get('/:id', (req, res) => {
         const id = req.params.id
         collection.find({ _id: ObjectId(id) })
@@ -52,6 +51,7 @@ client.connect(err => {
                 res.send(result.insertedCount > 0)
             })
     })
+
     app.post('/addOrder', (req, res) => {
         const order = req.body;
         orderCollection.insertOne(order)
@@ -59,6 +59,7 @@ client.connect(err => {
                 res.send(result.insertedCount > 0);
             })
     })
+    
     app.delete('/delete/:id', (req, res) => {
         collection.deleteOne({ _id: ObjectId(req.params.id) })
             .then(result => {
