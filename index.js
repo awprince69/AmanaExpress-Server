@@ -1,7 +1,7 @@
 const express = require('express')
 const MongoClient = require('mongodb').MongoClient;
 const ObjectId = require('mongodb').ObjectId
-cors = require('cors')
+const cors = require('cors')
 require('dotenv').config()
 
 const app = express()
@@ -23,8 +23,8 @@ client.connect(err => {
 
     app.get('/products', (req, res) => {
         collection.find()
-            .toArray((err, items) => {
-                res.send(items);
+            .toArray((err, product) => {
+                res.send(product);
             })
     })
     app.get('/orders', (req, res) => {
@@ -37,8 +37,8 @@ client.connect(err => {
     app.get('/:id', (req, res) => {
         const id = req.params.id
         collection.find({ _id: ObjectId(id) })
-            .toArray((err, items) => {
-                res.send(items[0]);
+            .toArray((err, item) => {
+                res.send(item[0]);
             })
     })
 
@@ -56,6 +56,16 @@ client.connect(err => {
                 res.send(result.insertedCount > 0);
             })
     })
+    app.delete('/delete/:id', (req, res) => {
+        // console.log(req.params.id);
+        collection.deleteOne({ _id: ObjectId(req.params.id) })
+            .then(result => {
+                res.send(result.deletedCount > 0)
+                // res.redirect('http://localhost:3000')
+                console.log(result);
+            })
+    })
+
 });
 
 app.listen(port)
