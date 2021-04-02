@@ -3,6 +3,7 @@ const MongoClient = require('mongodb').MongoClient;
 const ObjectId = require('mongodb').ObjectID
 const cors = require('cors')
 // require('dotenv').config()
+require('dotenv/config');
 
 const app = express()
 app.use(cors())
@@ -15,7 +16,8 @@ app.get('/', (req, res) => {
 })
 
 
-const uri = "mongodb+srv://amanaExpress:test123@cluster0.kmkzt.mongodb.net/$amanaExpress?retryWrites=true&w=majority";
+// const uri = "mongodb+srv://amanaExpress:test123@cluster0.kmkzt.mongodb.net/$amanaExpress?retryWrites=true&w=majority";
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.kmkzt.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 client.connect(err => {
     console.log(err);
