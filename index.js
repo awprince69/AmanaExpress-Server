@@ -18,7 +18,6 @@ app.get('/', (req, res) => {
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.kmkzt.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 client.connect(err => {
-    console.log(err);
     const collection = client.db("amanaExpress").collection("products");
     const orderCollection = client.db("amanaExpress").collection("orders");
 
@@ -58,11 +57,9 @@ client.connect(err => {
             })
     })
     app.delete('/delete/:id', (req, res) => {
-        // console.log(req.params.id);
         collection.deleteOne({ _id: ObjectId(req.params.id) })
             .then(result => {
                 res.send(result.deletedCount > 0)
-                // res.redirect('http://localhost:3000')
                 console.log(result);
             })
     })
